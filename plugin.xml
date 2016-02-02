@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="coredinate.kkr.cordova.plugin.apk-updater"
+        version="0.2">
+
+    <name>APK-Updater</name>
+
+    <description></description>
+
+    <repo>http://git@stash.coredinate.de:7999/cor/cordova-plugin-apk-autoupdate.git</repo>
+
+    <keywords></keywords>
+
+    <license></license>
+
+    <author>Konstantin Krassmann</author>
+
+    <!-- cordova -->
+    <engines>
+        <engine name="cordova" version=">=3.6.0" />
+    </engines>
+
+    <!-- js -->
+    <js-module src="www/ApkAutoUpdaterPlugin.js" name="ApkAutoUpdatePlugin">
+        <clobbers target="cordova.plugins.ApkAutoUpdate" />
+        <clobbers target="plugin.ApkAutoUpdate" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <source-file
+                src="src/android/ApkAutoUpdatePlugin.java"
+                target-dir="src/coredinate/kkr/cordova/plugin/apk-updater" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ApkAutoUpdatePlugin">
+                <param name="android-package" value="coredinate.kkr.cordova.plugin.ApkAutoUpdatePlugin"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+        </config-file>
+    </platform>
+
+
+
+</plugin>

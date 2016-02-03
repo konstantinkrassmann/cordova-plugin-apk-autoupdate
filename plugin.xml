@@ -41,6 +41,8 @@
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.DELETE_PACKAGES" />
         </config-file>
     </platform>
 

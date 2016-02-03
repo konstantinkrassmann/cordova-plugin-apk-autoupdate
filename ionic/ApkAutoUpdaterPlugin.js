@@ -2,7 +2,7 @@
  * Ionic service wrapper for the TimerPlugin
  * url: https://github.com/schchr/cordova-plugin-timers.git
  */
-app.service("ApkAutoUpdater", function(){
+app.service("ApkAutoUpdater", function($q){
 
     var self = this;
 
@@ -18,10 +18,13 @@ app.service("ApkAutoUpdater", function(){
     *  Install an apk from the passed url
      * @param String strUrl Url to download the apk from http://exmple.de/test.apk
     */
-    this.updateFromUrl = function(strUrl) {
+    this.updateFromUrl = function(strUrl, success, error) {
+        var defer = $q.defer();
+
         if(strUrl){
-            return plugin.updateFromUrl(strUrl);
+            return plugin.updateFromUrl(strUrl, defer.resolve,  defer.reject);
         }
+        return defer.promise;
     }
 
 

@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="coredinate.kkr.cordova.plugin.apk-updater"
+        id="coredinate.kkr.cordova.plugin.apkupdater"
         version="0.2">
 
     <name>ApkAutoUpdatePlugin</name>
@@ -24,8 +24,8 @@
 
     <!-- js -->
     <js-module src="www/ApkAutoUpdaterPlugin.js" name="ApkAutoUpdatePlugin">
-        <clobbers target="cordova.plugins.ApkAutoUpdate" />
-        <clobbers target="plugin.ApkAutoUpdate" />
+        <clobbers target="cordova.plugins.ApkAutoUpdater" />
+        <clobbers target="plugin.ApkAutoUpdater" />
     </js-module>
 
     <!-- android -->

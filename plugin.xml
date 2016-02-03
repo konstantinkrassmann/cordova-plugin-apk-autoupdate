@@ -39,7 +39,7 @@
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="ApkAutoUpdatePlugin">
-                <param name="android-package" value="coredinate.kkr.cordova.plugin.apkupdater"/>
+                <param name="android-package" value="coredinate.kkr.cordova.plugin.apkupdater.ApkAutoUpdaterPlugin"/>
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest">

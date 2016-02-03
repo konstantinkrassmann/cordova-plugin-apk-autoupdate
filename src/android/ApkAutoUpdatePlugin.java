@@ -16,23 +16,15 @@ import android.util.Log;
 
 public class ApkAutoUpdatePlugin extends CordovaPlugin {
 
+	public static final String TAG = "ApkAutoUpdatePlugin";
 	protected static CordovaInterface cordovaInstance = null;
 	private static CordovaWebView webView = null;
-
-    BroadcastReceiver mReceiver;
-
-	// Logging: adb logcat -s alarmButton
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
 		AlarmButtonPlugin.webView = super.webView;
 		AlarmButtonPlugin.cordovaInstance = super.cordova;
-
-		Log.v(TAG, "init");
-
-		RegisterAlarmBroadcast();
-
 	}
 
 	@Override

@@ -5,7 +5,7 @@
         id="coredinate.kkr.cordova.plugin.apk-updater"
         version="0.2">
 
-    <name>APK-Updater</name>
+    <name>ApkAutoUpdatePlugin</name>
 
     <description></description>
 
@@ -32,7 +32,10 @@
     <platform name="android">
         <source-file
                 src="src/android/ApkAutoUpdatePlugin.java"
-                target-dir="src/coredinate/kkr/cordova/plugin/apk-updater" />
+                target-dir="src/coredinate/kkr/cordova/plugin/apkupdater" />
+        <source-file
+            src="src/android/UpdateApp.java"
+            target-dir="src/coredinate/kkr/cordova/plugin/apkupdater" />
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="ApkAutoUpdatePlugin">

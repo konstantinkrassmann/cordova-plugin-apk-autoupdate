@@ -1,4 +1,4 @@
-package coredinate.kkr.cordova.plugin.apk-updater;
+package coredinate.kkr.cordova.plugin.apkupdater;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -52,9 +52,8 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 	}
 
  	private void updateFromUrl(JSONArray data) {
-
-        private UpdateApp atualizaApp = new UpdateApp();
+        UpdateApp atualizaApp = new UpdateApp();
         atualizaApp.setContext(getApplicationContext());
-        atualizaApp.execute(data.optString(0);
+        atualizaApp.execute(data.optString(0));
 	}
 }

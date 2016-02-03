@@ -1,4 +1,4 @@
-package coredinate.kkr.cordova.plugin.apk-updater;
+package coredinate.kkr.cordova.plugin.apkupdater;
 
 public class UpdateApp extends AsyncTask<String,Void,Void>{
     private Context context;

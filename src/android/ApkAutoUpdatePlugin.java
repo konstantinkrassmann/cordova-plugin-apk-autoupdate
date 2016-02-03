@@ -24,6 +24,8 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		ApkAutoUpdatePlugin.webView = super.webView;
 		ApkAutoUpdatePlugin.cordovaInstance = super.cordova;
+
+		Log.v(TAG, "--- Init");
 	}
 
 	@Override

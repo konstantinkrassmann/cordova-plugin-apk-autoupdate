@@ -9,23 +9,23 @@ app.service("ApkAutoUpdater", function($q){
     var plugin;
 
     if(typeof cordova != "undefined" &&
-    typeof cordova.plugins.ApkAutoUpdater !== "undefined"){
+        typeof cordova.plugins.ApkAutoUpdater !== "undefined"){
         var plugin = cordova.plugins.ApkAutoUpdater;
-       console.info("-- ApkAutoUpdater loaded");
+        console.info("-- ApkAutoUpdater loaded");
     }
 
     /**
-    *  Install an apk from the passed url
+     *  Install an apk from the passed url
      * @param String strUrl Url to download the apk from http://exmple.de/test.apk
-    */
-    this.updateFromUrl = function(strUrl, success, error) {
+     */
+    this.updateFromUrl = function(strUrl) {
         var defer = $q.defer();
 
         if(strUrl){
-            return plugin.updateFromUrl(strUrl, defer.resolve,  defer.reject);
+            plugin.updateFromUrl(strUrl, defer.resolve,  defer.reject);
         }
         return defer.promise;
-    }
+    };
 
 
     return this;

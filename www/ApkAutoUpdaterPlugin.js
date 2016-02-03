@@ -18,7 +18,7 @@ var ApkAutoUpdater = {
         }, function (err) {
             if (typeof err !== "undefined")
                 error(err)
-        }, "ApkAutoUpdaterPlugin", "updateFromUrl", [strUrl]);
+        }, "ApkAutoUpdatePlugin", "updateFromUrl", [strUrl]);
     }
 };
 

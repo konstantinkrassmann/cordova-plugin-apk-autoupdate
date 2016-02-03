@@ -22,9 +22,8 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-
-		AlarmButtonPlugin.webView = super.webView;
-		AlarmButtonPlugin.cordovaInstance = super.cordova;
+		ApkAutoUpdatePlugin.webView = super.webView;
+		ApkAutoUpdatePlugin.cordovaInstance = super.cordova;
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 
  	private void updateFromUrl(JSONArray data) {
         UpdateApp atualizaApp = new UpdateApp();
-        atualizaApp.setContext(getApplicationContext());
+		atualizaApp.setContext(this.cordova.getActivity().getApplicationContext());
         atualizaApp.execute(data.optString(0));
 	}
 }

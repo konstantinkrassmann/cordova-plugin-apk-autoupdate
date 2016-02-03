@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        id="coredinate.kkr.cordova.plugin.apkupdater"
-        version="0.2">
+<plugin xmlns:android="http://schemas.android.com/apk/res/android"
+    id="coredinate.kkr.cordova.plugin.apkupdater"
+    version="0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
     <name>ApkAutoUpdatePlugin</name>
 
@@ -23,32 +22,28 @@
     </engines>
 
     <!-- js -->
-    <js-module src="www/ApkAutoUpdaterPlugin.js" name="ApkAutoUpdatePlugin">
+    <js-module name="ApkAutoUpdatePlugin" src="www/ApkAutoUpdaterPlugin.js">
         <clobbers target="cordova.plugins.ApkAutoUpdater" />
         <clobbers target="plugin.ApkAutoUpdater" />
     </js-module>
 
     <!-- android -->
     <platform name="android">
-        <source-file
-                src="src/android/ApkAutoUpdatePlugin.java"
-                target-dir="src/coredinate/kkr/cordova/plugin/apkupdater" />
-        <source-file
-            src="src/android/UpdateApp.java"
+        <source-file src="src/android/ApkAutoUpdatePlugin.java"
+            target-dir="src/coredinate/kkr/cordova/plugin/apkupdater" />
+        <source-file src="src/android/UpdateApp.java"
             target-dir="src/coredinate/kkr/cordova/plugin/apkupdater" />
 
-        <config-file target="res/xml/config.xml" parent="/*">
+        <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ApkAutoUpdatePlugin">
-                <param name="android-package" value="coredinate.kkr.cordova.plugin.apkupdater.ApkAutoUpdaterPlugin"/>
+                <param name="android-package"
+                    value="coredinate.kkr.cordova.plugin.apkupdater.ApkAutoUpdatePlugin" />
             </feature>
         </config-file>
-        <config-file target="AndroidManifest.xml" parent="/manifest">
+        <config-file parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.DELETE_PACKAGES" />
         </config-file>
     </platform>
-
-
-
 </plugin>

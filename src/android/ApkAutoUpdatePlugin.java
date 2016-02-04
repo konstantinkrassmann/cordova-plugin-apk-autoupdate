@@ -31,11 +31,10 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 	@Override
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
-		Log.v(TAG, "execute(" + action + ")");
+		Log.v(TAG, "Executing (" + action + ")");
 
 		if (action.equals("updateFromUrl")){
-			updateFromUrl(data);
-			callbackContext.success(1);
+			updateFromUrl(data, callbackContext);
 		}
 		else
 			return false;
@@ -44,9 +43,10 @@ public class ApkAutoUpdatePlugin extends CordovaPlugin {
 
 	}
 
- 	private void updateFromUrl(JSONArray data) {
+ 	private void updateFromUrl(JSONArray data, CallbackContext callbackContext) {
         UpdateApp atualizaApp = new UpdateApp();
 		atualizaApp.setContext(this.cordova.getActivity().getApplicationContext());
+		atualizaApp.setCallback(callbackContext);
         atualizaApp.execute(data.optString(0));
 	}
 }

@@ -8,59 +8,80 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Exception;
 import java.net.HttpURLConnection;
+import org.apache.cordova.CallbackContext;
 import java.net.URL;
 import android.util.Log;
+import android.widget.Toast;
 
 public class UpdateApp extends AsyncTask<String, Void, Void> {
     private Context context;
+    private CallbackContext callbackContext;
 
     public void setContext(Context contextf) {
         context = contextf;
     }
 
+    public void setCallback(CallbackContext callbackContextf) {
+        this.callbackContext = callbackContextf;
+    }
+
     @Override
     protected Void doInBackground(String... arg0) {
+        String apkurl = arg0[0];
+        String outputFileName = "install.apk";
         try {
-            URL url = new URL(arg0[0]);
+            URL url = new URL(apkurl);
             HttpURLConnection c = (HttpURLConnection) url.openConnection();
-            Log.v(ApkAutoUpdatePlugin.TAG, "downloading apk from " + arg0[0] + "....");
             c.setRequestMethod("GET");
             c.setDoOutput(true);
             c.connect();
 
-            String PATH = Environment.getDownloadCacheDirectory().getAbsolutePath();
-            String apkFileName = "update.apk";
+            // this will be useful to display download percentage
+            // might be -1: server did not report the length
+            int fileLength = c.getContentLength();
+            long total = 0;
 
+            String PATH = context.getExternalCacheDir().getAbsolutePath();
             File file = new File(PATH);
             file.mkdirs();
-            File outputFile = new File(file, apkFileName);
-            if (outputFile.exists()) {
-                Log.v(ApkAutoUpdatePlugin.TAG, "apk did already exist, deleting");
-                outputFile.delete();
-            }
+
+            File outputFile = new File(file, outputFileName);
+            outputFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(outputFile);
 
+            Log.v(ApkAutoUpdatePlugin.TAG, "Store file to " + outputFile.getAbsolutePath());
+
             InputStream is = c.getInputStream();
-            Log.v(ApkAutoUpdatePlugin.TAG, "streaming apk into folder: " + PATH + "....");
+            Log.v(ApkAutoUpdatePlugin.TAG, "Start writing the file....");
             byte[] buffer = new byte[1024];
             int len1 = 0;
+
             while ((len1 = is.read(buffer)) != -1) {
+                total += len1;
+                Log.v(ApkAutoUpdatePlugin.TAG, "Writing...."+(total * 100 / fileLength) + "%");
                 fos.write(buffer, 0, len1);
             }
+            Log.v(ApkAutoUpdatePlugin.TAG, "File successfully downloaded and stored.");
+            fos.flush();
             fos.close();
             is.close();
-            Log.v(ApkAutoUpdatePlugin.TAG, "saved apk into folder: " + PATH +"!");
+            callbackContext.success(1);
 
+            Log.v(ApkAutoUpdatePlugin.TAG, "Starting activity...");
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(PATH+"/"+apkFileName)), "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(Uri.fromFile(outputFile),
+                    "application/vnd.android.package-archive");
             context.startActivity(intent);
-            Log.v(ApkAutoUpdatePlugin.TAG, "Starting apk activity");
 
+            Log.v(ApkAutoUpdatePlugin.TAG, "Started activity successfully!");
         } catch (Exception e) {
-            Log.e(ApkAutoUpdatePlugin.TAG, "Update error! " + e.getMessage());
+             callbackContext.error("Update error!");
+             Log.e(ApkAutoUpdatePlugin.TAG, "Error during processing", e);
         }
         return null;
     }
